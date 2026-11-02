@@ -44,7 +44,8 @@ h1 span { color: var(--blue); }
 .arena-wrap { padding: 0 14px; }
 .arena { width: 100%; height: 365px; position: relative; isolation: isolate; display: grid; place-items: center; overflow: hidden; border: 1px solid #2c3d5b; border-radius: 11px; background: radial-gradient(ellipse at 50% 48%, #24385a 0, #172640 48%, #101b30 100%); color: #f3f6ff; cursor: pointer; transition: background .25s, border-color .25s; }
 .arena[data-state="waiting"] { border-color: #c18d4b; background: radial-gradient(ellipse at 50% 48%, #463a2b 0, #252c3d 48%, #101b30 100%); }
-.arena[data-state="ready"] { border-color: #4ce0ad; background: radial-gradient(ellipse at 50% 48%, #14584f 0, #123c3b 48%, #0d1f30 100%); box-shadow: inset 0 0 70px #4ce0ad12, 0 0 30px #4ce0ad15; }
+.arena[data-state="ready"] { border-color: #72ffd0; background: #14584f; background: radial-gradient(ellipse at 50% 48%, #1e9a79 0, #126052 48%, #0d2f30 100%); box-shadow: inset 0 0 90px #4ce0ad55, 0 0 42px #4ce0ad66; }
+.arena.is-ready { border-color: #72ffd0 !important; background: #15745e !important; box-shadow: inset 0 0 110px #4ce0ad66, 0 0 48px #4ce0ad88 !important; }
 .arena[data-state="falseStart"] { border-color: #f17d83; background: radial-gradient(ellipse at 50% 48%, #512d43 0, #2b2439 48%, #101b30 100%); }
 .arena[data-state="result"] { border-color: #7c8cff; }
 .three-scene { position: absolute; inset: 0; z-index: -1; pointer-events: none; }

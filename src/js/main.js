@@ -57,6 +57,24 @@ const copy = {
 const stats = new Statistics(readBest());
 let scene = null;
 
+function scheduleSignal(callback, delay) {
+  const startedAt = performance.now();
+  let frame;
+  const tick = (now) => {
+    if (now - startedAt >= delay) {
+      callback();
+      return;
+    }
+    frame = requestAnimationFrame(tick);
+  };
+  frame = requestAnimationFrame(tick);
+  return frame;
+}
+
+function cancelSignal(frame) {
+  cancelAnimationFrame(frame);
+}
+
 function valueMarkup(value) {
   return value === null ? "—<span>ms</span>" : String(value) + "<span>ms</span>";
 }
@@ -88,6 +106,7 @@ function renderHistory(history) {
 function renderGame({ state, lastTime }) {
   const content = copy[state] || copy[STATES.IDLE];
   elements.arena.dataset.state = state;
+  elements.arena.classList.toggle("is-ready", state === STATES.READY);
   elements.eyebrow.textContent = content.eyebrow;
   elements.headline.textContent = state === STATES.RESULT ? String(lastTime) + " ms" : content.headline;
   elements.headline.classList.toggle("result-time", state === STATES.RESULT);
@@ -105,6 +124,8 @@ function renderGame({ state, lastTime }) {
 }
 
 const game = new ReactionGame({
+  schedule: scheduleSignal,
+  cancel: cancelSignal,
   onChange: renderGame,
   onResult(time) {
     const previousBest = stats.personalBest;
@@ -132,7 +153,6 @@ elements.reset.addEventListener("click", () => {
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) game.stop();
 });
-window.addEventListener("blur", () => game.stop());
 window.addEventListener("pagehide", () => {
   game.dispose();
   scene?.dispose();
