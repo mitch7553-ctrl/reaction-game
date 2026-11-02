@@ -1,0 +1,13 @@
+{
+  "name": "midnight-pulse-reaction-timer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A polished reaction timer game featuring animated Three.js geometry.",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
