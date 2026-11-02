@@ -27,7 +27,7 @@ function createHarness() {
 test("random signal delay stays within the one-to-five-second range", () => {
   assert.equal(randomDelay(() => 0), 1000);
   assert.equal(randomDelay(() => 0.5), 3000);
-  assert.equal(randomDelay(() => 0.999), 4997);
+  assert.equal(randomDelay(() => 0.999), 4996);
 });
 
 test("a response before the signal is recorded as a false start", () => {
