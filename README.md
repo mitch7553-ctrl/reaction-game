@@ -69,3 +69,12 @@ reaction-game/
 ## Timing note
 
 Browser reaction times are useful for personal comparison, not laboratory measurement. Display refresh, browser scheduling, operating-system load, and input-device latency all affect the result. Compare attempts on the same device and setup.
+
+
+## On-screen controls and ratings
+
+The instructions appear **inside the game stage only on the first screen after a page load**. Click/tap the stage or press **Space** to start, react, or retry; the separate Start Game button also works. The instructions disappear when a round starts, including after a reset. Space doesn't intercept typing or activation of other buttons.
+
+After each valid reaction time, the stage displays an **informal game-specific rating**: Amazing (<150 ms), Very good (150–199 ms), Good (200–249 ms), Average (250–349 ms), or Below average (350+ ms). These bands are illustrative feedback for the game, **not population percentiles or clinical standards**. Lower times are faster.
+
+The GitHub Actions workflow currently runs automated tests only; GitHub Pages deployment remains disabled.

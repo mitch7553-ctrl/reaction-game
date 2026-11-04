@@ -37,7 +37,7 @@
               <span class="panel-index">01 — 05 SEC</span>
             </div>
             <div class="arena-wrap">
-              <button id="arena" class="arena" type="button" data-state="idle" aria-label="Start the reaction test">
+              <button id="arena" class="arena" type="button" data-state="idle" data-intro="true" aria-label="Start the reaction test. Read the instructions shown inside the game area.">
                 <div id="three-scene" class="three-scene" aria-hidden="true"></div>
                 <div class="arena-grid" aria-hidden="true"></div>
                 <div class="arena-orbit" aria-hidden="true"></div>
@@ -46,12 +46,28 @@
                   <span id="headline" class="arena-headline">How fast are your reflexes?</span>
                   <span id="caption" class="arena-caption">Press Start Game to begin.</span>
                 </div>
+                <div id="welcome-instructions" class="welcome-instructions">
+                  <span class="welcome-kicker">HOW TO PLAY</span>
+                  <strong class="welcome-title">Ready to test your reflexes?</strong>
+                  <div class="welcome-steps">
+                    <span><b>01</b> Click anywhere here or press <strong>Space</strong> to begin.</span>
+                    <span><b>02</b> Wait 1–5 seconds for the stage to turn green. No early clicks!</span>
+                    <span><b>03</b> Click, tap, or press <strong>Space</strong> as quickly as possible.</span>
+                  </div>
+                  <span class="welcome-cta">CLICK THIS STAGE OR PRESS SPACE TO START ↗</span>
+                </div>
+                <div id="rating-details" class="rating-details" hidden>
+                  <strong id="rating-title" class="rating-title"></strong>
+                  <span id="rating-description" class="rating-description"></span>
+                  <span class="rating-scale">Amazing &lt;150 · Very good 150–199 · Good 200–249 · Average 250–349 · Below average 350+ ms</span>
+                  <span class="rating-disclaimer">Illustrative game benchmarks, not scientific or medical norms. Lower is faster.</span>
+                </div>
               </button>
             </div>
             <div class="game-controls">
               <button id="start" class="primary-button" type="button">Start Game <span aria-hidden="true">↗</span></button>
               <button id="stop" class="secondary-button" type="button" disabled>Stop</button>
-              <span class="keyboard-hint"><kbd>SPACE</kbd> to react when the panel is focused</span>
+              <span class="keyboard-hint"><kbd>SPACE</kbd> start / react / retry</span>
             </div>
             <p id="render-note" class="render-note" hidden>3D graphics are unavailable in this browser. The reaction test is still playable.</p>
           </section>
@@ -110,20 +126,6 @@
             </div>
           </section>
 
-          <section class="how-to-panel" aria-labelledby="how-title">
-            <div class="section-heading">
-              <div>
-                <p class="eyebrow">THE RULES</p>
-                <h2 id="how-title">How to play</h2>
-              </div>
-            </div>
-            <ol class="steps">
-              <li><span class="step-number">01</span><div><h3>Start the test</h3><p>Press <strong>Start Game</strong> to begin a round.</p></div></li>
-              <li><span class="step-number">02</span><div><h3>Wait for green</h3><p>Stay ready. The signal appears after a random 1–5 second delay. An early press counts as a false start.</p></div></li>
-              <li><span class="step-number">03</span><div><h3>React!</h3><p>When the stage turns green, click or tap it, or press <strong>Space</strong> while it is focused.</p></div></li>
-              <li><span class="step-number">04</span><div><h3>Beat your record</h3><p>Check your time and play again. Your personal best is saved locally.</p></div></li>
-            </ol>
-          </section>
         </aside>
       </section>
     </main>

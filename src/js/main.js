@@ -2,6 +2,7 @@ import { ReactionGame, STATES } from "./game.js";
 import { Statistics } from "./statistics.js";
 import { readBest, writeBest } from "./storage.js";
 import { createScene } from "./scene.js";
+import { rateReaction } from "./rating.js";
 
 const $ = (id) => document.getElementById(id);
 const elements = {
@@ -19,6 +20,10 @@ const elements = {
   history: $("history"),
   reset: $("reset"),
   renderNote: $("render-note"),
+  welcome: $("welcome-instructions"),
+  ratingDetails: $("rating-details"),
+  ratingTitle: $("rating-title"),
+  ratingDescription: $("rating-description"),
 };
 
 const copy = {
@@ -56,6 +61,7 @@ const copy = {
 
 const stats = new Statistics(readBest());
 let scene = null;
+let hasStarted = false;
 
 function scheduleSignal(callback, delay) {
   const startedAt = performance.now();
@@ -105,6 +111,16 @@ function renderHistory(history) {
 
 function renderGame({ state, lastTime }) {
   const content = copy[state] || copy[STATES.IDLE];
+  if (state === STATES.WAITING) hasStarted = true;
+  elements.welcome.hidden = hasStarted;
+  elements.arena.dataset.intro = String(!hasStarted);
+  elements.ratingDetails.hidden = state !== STATES.RESULT;
+  if (state === STATES.RESULT && lastTime !== null) {
+    const rating = rateReaction(lastTime);
+    elements.ratingTitle.textContent = rating.label;
+    elements.ratingTitle.dataset.rating = rating.key;
+    elements.ratingDescription.textContent = rating.explanation;
+  }
   elements.arena.dataset.state = state;
   elements.arena.classList.toggle("is-ready", state === STATES.READY);
   elements.eyebrow.textContent = content.eyebrow;
@@ -119,7 +135,8 @@ function renderGame({ state, lastTime }) {
     state === STATES.READY ? "Green signal. React now." :
     state === STATES.FALSE_START ? "False start. Start another round." :
     state === STATES.RESULT ? "Reaction time " + lastTime + " milliseconds. Start another round." :
-    "Start the reaction test");
+    !hasStarted ? "How to play. Click this stage or press Space to start. Wait until the signal turns green, then react immediately." :
+    "Click or press Space to start the reaction test");
   scene?.setState(state);
 }
 
@@ -135,12 +152,39 @@ const game = new ReactionGame({
   },
 });
 
-elements.start.addEventListener("click", () => game.start());
-elements.arena.addEventListener("click", () => {
-  if (game.state === STATES.IDLE || game.state === STATES.RESULT || game.state === STATES.FALSE_START) {
+function activateStage() {
+  if ([STATES.IDLE, STATES.RESULT, STATES.FALSE_START].includes(game.state)) {
     game.start();
   } else {
     game.respond();
+  }
+}
+
+elements.start.addEventListener("click", () => game.start());
+elements.arena.addEventListener("click", activateStage);
+
+// Space works even when the stage isn't focused. Preserve native keyboard
+// behavior on other buttons and form controls, and ignore key auto-repeat.
+function isTypingTarget(target) {
+  return target instanceof Element &&
+    Boolean(target.closest("input, textarea, select, [contenteditable], [role='textbox']"));
+}
+function isOtherButton(target) {
+  return target instanceof Element &&
+    Boolean(target.closest("button, a, [role='button']")) &&
+    !elements.arena.contains(target);
+}
+document.addEventListener("keydown", (event) => {
+  if (event.code !== "Space" || event.repeat ||
+      event.altKey || event.ctrlKey || event.metaKey ||
+      isTypingTarget(event.target) || isOtherButton(event.target)) return;
+  event.preventDefault(); // Prevent scrolling and the arena's synthetic button click.
+  activateStage();
+});
+document.addEventListener("keyup", (event) => {
+  if (event.code === "Space" && !event.altKey && !event.ctrlKey && !event.metaKey &&
+      !isTypingTarget(event.target) && !isOtherButton(event.target)) {
+    event.preventDefault();
   }
 });
 elements.stop.addEventListener("click", () => game.stop());

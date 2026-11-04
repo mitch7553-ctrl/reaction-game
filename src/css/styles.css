@@ -137,3 +137,45 @@ h2 { margin-bottom: 0; color: #eff3ff; font-size: 19px; letter-spacing: -.6px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Initial, one-time onboarding inside the stage. */
+[hidden] { display: none !important; }
+.arena[data-intro="true"] .arena-content { display: none; }
+.welcome-instructions {
+  position: relative; z-index: 3; width: min(92%, 440px);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding: 18px 16px; border-radius: 14px;
+  background: #0b1120db; border: 1px solid #7282a34d;
+  box-shadow: 0 15px 35px #0005; text-align: center;
+}
+.welcome-kicker { font: 10px "DM Mono", monospace; letter-spacing: 2px; color: var(--cyan); }
+.welcome-title { font-size: clamp(17px, 2.2vw, 23px); letter-spacing: -.6px; }
+.welcome-steps { display: grid; gap: 10px; text-align: left; color: #c1cde2; font-size: 12px; line-height: 1.5; }
+.welcome-steps span { display: block; }
+.welcome-steps b { color: var(--cyan); font: 10px "DM Mono", monospace; margin-right: 9px; }
+.welcome-steps strong { color: #fff; }
+.welcome-cta { color: #9bf0e6; font: 10px "DM Mono", monospace; letter-spacing: .5px; }
+.arena[data-state="result"] .arena-content { transform: translateY(-64px); }
+.rating-details {
+  position: absolute; z-index: 4; bottom: 15px; left: 12px; right: 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 12px 15px; border: 1px solid #5d718b55; border-radius: 11px;
+  background: #0b1120ee; text-align: center; line-height: 1.35;
+}
+.rating-title { font-size: 16px; color: #aaf6e2; }
+.rating-title[data-rating="amazing"] { color: #84ffbd; }
+.rating-title[data-rating="very-good"] { color: #80f0df; }
+.rating-title[data-rating="good"] { color: #a8c0ff; }
+.rating-title[data-rating="average"] { color: #f4bd66; }
+.rating-title[data-rating="below-average"] { color: #ffacb2; }
+.rating-description { font-size: 11px; color: #d6e1f3; }
+.rating-scale { font: 10px/1.5 "DM Mono", monospace; color: #bac9df; }
+.rating-disclaimer { font-size: 9px; color: #8295b4; }
+@media(max-width: 520px) {
+  .arena { min-height: 355px; height: 355px; }
+  .welcome-instructions { gap: 10px; padding: 13px 12px; }
+  .welcome-steps { font-size: 11px; gap: 7px; }
+  .arena[data-state="result"] .arena-content { transform: translateY(-76px); }
+  .rating-details { bottom: 8px; padding: 10px 8px; }
+  .rating-scale { font-size: 9px; }
+}
