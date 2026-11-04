@@ -179,3 +179,16 @@ h2 { margin-bottom: 0; color: #eff3ff; font-size: 19px; letter-spacing: -.6px; }
   .rating-details { bottom: 8px; padding: 10px 8px; }
   .rating-scale { font-size: 9px; }
 }
+
+.reset-stats-button {
+  flex-shrink: 0;
+  border: 1px solid #576889;
+  border-radius: 8px;
+  background: #18263e;
+  color: #dde8fb;
+  padding: 8px 11px;
+  font: 600 11px Inter, sans-serif;
+  cursor: pointer;
+}
+.reset-stats-button:hover { border-color: var(--cyan); color: var(--cyan); }
+.reset-stats-button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }

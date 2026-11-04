@@ -78,3 +78,8 @@ The instructions appear **inside the game stage only on the first screen after a
 After each valid reaction time, the stage displays an **informal game-specific rating**: Amazing (<150 ms), Very good (150–199 ms), Good (200–249 ms), Average (250–349 ms), or Below average (350+ ms). These bands are illustrative feedback for the game, **not population percentiles or clinical standards**. Lower times are faster.
 
 The GitHub Actions workflow currently runs automated tests only; GitHub Pages deployment remains disabled.
+
+## Reset controls
+
+- **Reset session** (Recent attempts): clears this session's latest, fastest, average, attempt count, and recent results, but preserves the saved personal best.
+- **Reset Stats** (Performance panel): cancels an active round, clears all session results, resets the all-time personal best, and removes that best from browser local storage. It does not replay the introductory instructions.

@@ -1,6 +1,6 @@
 import { ReactionGame, STATES } from "./game.js";
 import { Statistics } from "./statistics.js";
-import { readBest, writeBest } from "./storage.js";
+import { readBest, writeBest, clearBest } from "./storage.js";
 import { createScene } from "./scene.js";
 import { rateReaction } from "./rating.js";
 
@@ -19,6 +19,7 @@ const elements = {
   personalBest: $("personal-best"),
   history: $("history"),
   reset: $("reset"),
+  resetStats: $("reset-stats"),
   renderNote: $("render-note"),
   welcome: $("welcome-instructions"),
   ratingDetails: $("rating-details"),
@@ -191,6 +192,15 @@ elements.stop.addEventListener("click", () => game.stop());
 elements.reset.addEventListener("click", () => {
   game.reset();
   stats.reset();
+  renderStats(stats.snapshot);
+});
+
+// Reset Stats clears both current-session metrics and the all-time saved best.
+// The original Reset session control intentionally preserves the personal best.
+elements.resetStats.addEventListener("click", () => {
+  game.reset(); // Also cancels any pending reaction signal.
+  stats.resetAll();
+  clearBest();
   renderStats(stats.snapshot);
 });
 

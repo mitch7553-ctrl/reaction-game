@@ -38,3 +38,19 @@ test("accepts a stored personal best only when it is positive and finite", () =>
   assert.equal(new Statistics(0).snapshot.personalBest, null);
   assert.equal(new Statistics(125).snapshot.personalBest, 125);
 });
+test("Reset Stats clears every metric including personal best", () => {
+  const stats = new Statistics(155);
+  stats.record(230);
+  stats.record(165);
+  stats.resetAll();
+  assert.deepEqual(stats.snapshot, {
+    latest: null,
+    fastest: null,
+    average: null,
+    attempts: 0,
+    personalBest: null,
+    history: [],
+  });
+  stats.record(210);
+  assert.equal(stats.snapshot.personalBest, 210);
+});

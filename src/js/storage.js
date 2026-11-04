@@ -22,3 +22,13 @@ export function writeBest(time, storage) {
     return false;
   }
 }
+
+export function clearBest(storage) {
+  try {
+    const target = storage ?? globalThis.localStorage;
+    target?.removeItem(BEST_KEY);
+    return true;
+  } catch {
+    return false;
+  }
+}

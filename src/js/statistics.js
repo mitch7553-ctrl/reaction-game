@@ -28,4 +28,9 @@ export class Statistics {
   reset() {
     this.results = [];
   }
+
+  resetAll() {
+    this.results = [];
+    this.personalBest = null;
+  }
 }
